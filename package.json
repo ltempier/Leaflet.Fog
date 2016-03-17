@@ -1,0 +1,23 @@
+{
+  "name": "leaflet.fog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "uglifyjs src/customSimpleheat.js src/HeatLayer.js -c -m -o dist/leaflet-fog.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ltempier/Leaflet.Fog.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ltempier/Leaflet.Fog/issues"
+  },
+  "homepage": "https://github.com/ltempier/Leaflet.Fog#readme",
+  "dependencies": {
+    "leaflet": "^0.7.7"
+  }
+}
