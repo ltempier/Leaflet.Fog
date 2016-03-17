@@ -12,7 +12,7 @@
 
         this._width = canvas.width;
         this._height = canvas.height;
-        this._size = 10;
+        this._size = 5;
 
         this.clear();
     }
@@ -33,13 +33,24 @@
 
             for (var i = 0, len = this._data.length, p; i < len; i++) {
                 p = this._data[i];
-                ctx.fillRect(
-                    p[0] - this._size < 0 ? 0 : p[0] - this._size,
-                    p[1] - this._size < 0 ? 0 : p[1] - this._size,
+                ctx.strokeStyle = this.getRandomColor();
+                ctx.strokeRect(
+                    p[0] - this._size,
+                    p[1] - this._size,
                     p[0] + this._size,
                     p[1] + this._size);
             }
+
             return this;
+        },
+
+        getRandomColor: function () {
+            var letters = '0123456789ABCDEF'.split('');
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
         }
     };
 

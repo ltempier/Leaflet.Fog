@@ -7,6 +7,23 @@ L.FogLayer = (L.Layer ? L.Layer : L.Class).extend({
         L.setOptions(this, options);
     },
 
+    setLatLngs: function (latlngs) {
+        this._latlngs = latlngs;
+        return this.redraw();
+    },
+
+    addLatLng: function (latlng) {
+        this._latlngs.push(latlng);
+        return this.redraw();
+    },
+
+    redraw: function () {
+        if (this._fog && !this._frame && !this._map._animating) {
+            this._frame = L.Util.requestAnimFrame(this._redraw, this);
+        }
+        return this;
+    },
+
     addTo: function (map) {
         map.addLayer(this);
         return this;
@@ -63,12 +80,12 @@ L.FogLayer = (L.Layer ? L.Layer : L.Class).extend({
 
     _redraw: function () {
         var p, x, y,
-            cellSize = 20,
+            cellSize = this._fog._size / 2,
             grid = [],
             size = this._map.getSize(),
             bounds = new L.Bounds(
-                L.point([-2 * cellSize, -2 * cellSize]),
-                size.add([2 * cellSize, 2 * cellSize])),
+                L.point([-this._fog._size, -this._fog._size]),
+                size.add([this._fog._size, this._fog._size])),
             panePos = this._map._getMapPanePos(),
             offsetX = panePos.x % cellSize,
             offsetY = panePos.y % cellSize;
@@ -91,10 +108,7 @@ L.FogLayer = (L.Layer ? L.Layer : L.Class).extend({
                 for (var j = 0, len2 = grid[i].length; j < len2; j++) {
                     var cell = grid[i][j];
                     if (cell) {
-                        data.push([
-                            Math.round(cell[0]),
-                            Math.round(cell[1])
-                        ]);
+                        data.push(cell);
                     }
                 }
             }

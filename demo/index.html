@@ -43,26 +43,31 @@
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
 
+
     addressPoints = addressPoints.map(function (p) {
         return [p[0], p[1]];
     });
 
-    var fog = L.fogLayer(addressPoints).addTo(map);
 
-    //    var draw = true;
-    //    map.on({
-    //        movestart: function () {
-    //            draw = false;
-    //        },
-    //        moveend: function () {
-    //            draw = true;
-    //        },
-    //        mousemove: function (e) {
-    //            if (draw) {
-    //                heat.addMyLocation(e.latlng);
-    //            }
-    //        }
-    //    })
+    var fog = L.fogLayer([]).addTo(map);
+
+    var draw = true;
+    map.on({
+        movestart: function () {
+            draw = false;
+        },
+        moveend: function () {
+            draw = true;
+        },
+        mousemove: function (e) {
+//            if (draw) {
+//                fog.addLatLng(e.latlng);
+//            }
+        },
+        click: function (e) {
+            fog.addLatLng(e.latlng);
+        }
+    })
 
 
 </script>
