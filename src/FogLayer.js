@@ -14,7 +14,7 @@ L.FogLayer = (L.Layer ? L.Layer : L.Class).extend({
 
     addLatLng: function (latlng) {
         this._latlngs.push(latlng);
-        return this.redraw();
+        return this._redraw();
     },
 
     redraw: function () {
@@ -79,41 +79,19 @@ L.FogLayer = (L.Layer ? L.Layer : L.Class).extend({
     },
 
     _redraw: function () {
-        var p, x, y,
-            cellSize = this._fog._size / 2,
-            grid = [],
+        var p,
             size = this._map.getSize(),
             bounds = new L.Bounds(
                 L.point([-this._fog._size, -this._fog._size]),
-                size.add([this._fog._size, this._fog._size])),
-            panePos = this._map._getMapPanePos(),
-            offsetX = panePos.x % cellSize,
-            offsetY = panePos.y % cellSize;
+                size.add([this._fog._size, this._fog._size]));
 
+        var data = [];
         for (var i = 0, len = this._latlngs.length; i < len; i++) {
             p = this._map.latLngToContainerPoint(this._latlngs[i]);
             if (bounds.contains(p)) {
-                x = Math.floor((p.x - offsetX) / cellSize) + 2;
-                y = Math.floor((p.y - offsetY) / cellSize) + 2;
-                grid[y] = grid[y] || [];
-                if (!grid[y][x]) {
-                    grid[y][x] = [p.x, p.y];
-                }
+                data.push([p.x, p.y])
             }
         }
-
-        var data = [];
-        for (var i = 0, len = grid.length; i < len; i++) {
-            if (grid[i]) {
-                for (var j = 0, len2 = grid[i].length; j < len2; j++) {
-                    var cell = grid[i][j];
-                    if (cell) {
-                        data.push(cell);
-                    }
-                }
-            }
-        }
-
         this._fog.data(data).draw();
     }
 });
