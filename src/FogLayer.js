@@ -127,6 +127,8 @@ L.FogLayer = (L.Layer ? L.Layer : L.Class).extend({
     },
     getPattern: function (size) {
         var canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
         var ctx = canvas.getContext('2d');
 
         var size5 = Math.round(size / 5);
