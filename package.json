@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "uglifyjs src/customSimpleheat.js src/HeatLayer.js -c -m -o dist/leaflet-fog.js"
+    "prepublish": "uglifyjs src/FogLayer.js -c -m -o dist/leaflet-fog.js"
   },
   "repository": {
     "type": "git",

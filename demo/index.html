@@ -49,7 +49,7 @@
     });
 
 
-    var fog = L.fogLayer([]).addTo(map);
+    var fog = L.fogLayer(addressPoints).addTo(map);
 
     var draw = true;
     map.on({
@@ -60,9 +60,9 @@
             draw = true;
         },
         mousemove: function (e) {
-//            if (draw) {
-//                fog.addLatLng(e.latlng);
-//            }
+            if (draw) {
+                fog.addCurrentLatLng(e.latlng);
+            }
         },
         click: function (e) {
             fog.addLatLng(e.latlng);
