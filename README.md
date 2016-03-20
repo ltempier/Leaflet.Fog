@@ -6,6 +6,7 @@ Inspired by the game Age of empires this library allows you to hide and show som
 
 ![alt text](http://i.imgur.com/Q6hkzMp.jpg "Age of empire map example")
 
+![alt text](http://i.imgur.com/Xs8L66Q.png "Leaflet.fog example")
 
 ## Basic Usage
 
